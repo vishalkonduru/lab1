@@ -1,0 +1,11 @@
+Test Case ID,Description,Criteria/Test Type,Expected Result,Type of Testing
+NFC01,Login response time,Performance,Login should complete within 2 sec,Non-Functional
+NFC02,UI elements are readable,Usability,"Font size ? 12px, labels clear",Non-Functional
+NFC03,Password field masked,Security,Characters appear as bullets/stars,Non-Functional
+NFC04,Cross-browser compatibility,Compatibility,"Login works on Chrome, Firefox, Edge",Non-Functional
+NFC05,Handle 50 concurrent logins,Load test (Performance),System should not crash or hang,Non-Functional
+TC01,Valid login,"Username: user, Password: 1234","Login successful, redirect to home",Functional
+TC02,Invalid password,"Username: user, Password: abcd",Error: Incorrect credentials,Functional
+TC03,Blank username,"Username: """", Password: 1234","Error: ""Username is required""",Functional
+TC04,Blank fields,Both fields empty,"Error: ""Enter username and password""",Functional
+TC05,Remember me checkbox,Checked,Login credentials retained on next visit,Functional
