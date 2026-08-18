@@ -1,0 +1,16 @@
+Test Case ID,Feature,Input 1,Input 2,Operation,Expected Output,Remarks,Status
+TC001,Addition,5,3,+,8,Basic positive numbers,Pass
+TC002,Addition,-5,3,+,-2,Negative + positive,Pass
+TC003,Addition,-4,-6,+,-10,Both negative,Pass
+TC004,Subtraction,10,4,-,6,Positive numbers,Pass
+TC005,Subtraction,4,10,-,-6,Result negative,Pass
+TC006,Multiplication,7,6,×,42,Positive numbers,Pass
+TC007,Multiplication,-7,6,×,-42,Negative × positive,Pass
+TC008,Multiplication,-7,-6,×,42,Negative × negative,Pass
+TC009,Division,8,2,÷,4,Exact division,Pass
+TC010,Division,7,2,÷,3.5,Decimal result,Pass
+TC011,Division,5,0,÷,Error/Infinity,Division by zero handling,Pass
+TC012,Large Numbers,999999,888888,+,1888887,Large integer addition,Pass
+TC013,Decimal Input,5.5,2.2,+,7.7,Floating-point addition,Pass
+TC014,Decimal Input,5.5,2,×,11,Float × integer,Pass
+TC015,Edge Case,0,0,+,0,Zero addition,Pass
