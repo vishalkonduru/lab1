@@ -1,0 +1,59 @@
+=== SESSION 0: VERIFY SOFTWARE ===
+
+java -version
+mvn -version
+git --version
+gh --version
+
+winget install EclipseAdoptium.Temurin.17.JDK
+choco install maven
+winget install Git.Git
+
+java -version
+mvn -version
+git --version
+
+echo $JAVA_HOME
+echo %JAVA_HOME%
+
+=== SESSION 1: MANUAL BUILD ===
+
+mkdir StudentApp
+cd StudentApp
+mkdir -p src/main/java/com/example
+
+mvn clean package
+
+ls target/
+
+java -cp target/StudentApp-1.0.jar com.example.App
+
+=== SESSION 2: GIT + GITHUB SETUP ===
+
+git init
+git status
+
+git add .
+git commit -m "Initial StudentApp project"
+
+gh repo create StudentApp --public --source=. --remote=origin
+
+git remote add origin https://github.com/USERNAME/StudentApp.git
+git remote -v
+
+git branch -M main
+git push -u origin main
+
+=== SESSION 3: GITHUB ACTIONS AUTOMATION ===
+
+mkdir -p .github/workflows
+
+git add .
+git commit -m "Add GitHub Actions CI build"
+git push
+
+=== SESSION 4: TEST THE AUTOMATION ===
+
+git add .
+git commit -m "Update application"
+git push
