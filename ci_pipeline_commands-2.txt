@@ -1,0 +1,124 @@
+=== SESSION 0: VERIFY SOFTWARE ===
+
+java -version
+mvn -version
+git --version
+gh --version
+
+winget install EclipseAdoptium.Temurin.17.JDK
+choco install maven
+winget install Git.Git
+
+java -version
+mvn -version
+git --version
+
+echo $JAVA_HOME
+echo %JAVA_HOME%
+
+=== SESSION 1: MANUAL BUILD ===
+
+mkdir StudentApp
+cd StudentApp
+mkdir -p src/main/java/com/example
+
+cat > pom.xml << 'EOF'
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>com.example</groupId>
+<artifactId>StudentApp</artifactId>
+<version>1.0</version>
+
+<properties>
+<maven.compiler.source>17</maven.compiler.source>
+<maven.compiler.target>17</maven.compiler.target>
+</properties>
+
+</project>
+EOF
+
+cat > src/main/java/com/example/App.java << 'EOF'
+package com.example;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello, StudentApp!");
+    }
+}
+EOF
+
+mvn clean package
+
+ls target/
+
+java -cp target/StudentApp-1.0.jar com.example.App
+
+=== SESSION 2: GIT + GITHUB SETUP ===
+
+git init
+git status
+
+git add .
+git commit -m "Initial StudentApp project"
+
+gh repo create StudentApp --public --source=. --remote=origin
+
+git remote add origin https://github.com/USERNAME/StudentApp.git
+git remote -v
+
+git branch -M main
+git push -u origin main
+
+=== SESSION 3: GITHUB ACTIONS AUTOMATION ===
+
+mkdir -p .github/workflows
+
+cat > .github/workflows/build.yml << 'EOF'
+name: Java Maven Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Maven
+        run: mvn clean package
+EOF
+
+git add .
+git commit -m "Add GitHub Actions CI build"
+git push
+
+=== SESSION 4: TEST THE AUTOMATION ===
+
+cat > src/main/java/com/example/App.java << 'EOF'
+package com.example;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("CI Pipeline is working!");
+    }
+}
+EOF
+
+git add .
+git commit -m "Update application"
+git push
